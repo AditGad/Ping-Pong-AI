@@ -23,7 +23,7 @@ var ball = {
 rightwristx=0;
 rightwristy=0;
 scorewrist=0;
-gamessatus="";
+gamestatus="";
 function preload() {
   balltouchpaddle=loadSound("ball_touch_paddel.wav");
   miss=loadSound("missed.wav");
@@ -58,7 +58,7 @@ function startGame(){
 function draw(){
 if(gamestatus=="start"){
  background(0); 
-
+image(video,0,0,700,600);
  fill("black");
  stroke("black");
  rect(680,0,20,700);
@@ -66,7 +66,11 @@ if(gamestatus=="start"){
  fill("black");
  stroke("black");
  rect(0,0,20,700);
- 
+ if(scorewrist>0.2){
+fill("cyan");
+stroke("cyan");
+circle(rightwristx,rightwristy,30);
+ }
    //funtion paddleInCanvas call 
    paddleInCanvas();
  
@@ -149,6 +153,7 @@ function move(){
   }
   else{
     pcscore++;
+ missed.play();
     reset();
     navigator.vibrate(100);
   }
@@ -190,4 +195,9 @@ function paddleInCanvas(){
   if(mouseY < 0){
     mouseY =0;
   }  
+}
+function restart(){
+  loop();
+  pcscore=0;
+  playerscore=0;
 }
